@@ -10,6 +10,7 @@ var flash = require('connect-flash');
 
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var validator = require('express-validator');
 var port = process.env.PORT || 8080;
 var mongoose = require('mongoose');
 
@@ -42,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+app.use(validator());
 
 //for index
 //app.use('/', routes);
