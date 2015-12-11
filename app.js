@@ -102,3 +102,4 @@ module.exports = app;
 app.listen(port);
 console.log('The magic happens on port ' + port);
 console.log('This message should displayed on github');
+console.log('This message should displayed on local');
