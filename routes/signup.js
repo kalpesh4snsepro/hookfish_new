@@ -20,7 +20,7 @@ router.post('/hello', function(req, res) {
 router.get('/', function(req, res) {
 
     console.log('signup get actdfgdion');
-    res.send('signup get actidfgdfon');
+    res.render('signup.ejs');
 });
 
 router.post('/', function(req, res, next) {
@@ -28,6 +28,7 @@ router.post('/', function(req, res, next) {
     console.log('in post action');
     sanitizeReqBody(req,req.body);
     
+    console.log(req.body);
     req.checkBody("email", "Enter a valid email address.").notEmpty().isEmail();
     req.checkBody("first_name", "Only characters allowed in first name.").notEmpty().isAlpha();
     req.checkBody("last_name", "Only characters allowed in last name.").isAlpha();
@@ -36,7 +37,7 @@ router.post('/', function(req, res, next) {
     req.checkBody("password", "No special characters allowed in password.").isAlphanumeric();
     
     if(typeof req.body.user_type != 'undefined'){
-        req.checkBody("user_type", "Invalid user_type").isIn(['Customer', 'Broker']);
+        req.checkBody("user_type", "Invalid user_type").isIn(['customer', 'broker']);
     }    
     
 

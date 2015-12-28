@@ -10,7 +10,10 @@ module.exports = function(app, fs) {
             { name: 'signup' }, 
             { name: 'login' }, 
             { name: 'reset' }, 
-            { name: 'forgot' }, 
+            { name: 'rest_api' },
+            { name: 'forgot' },
+            { name: 'landing' },
+            { name: 'signup' },
     ];
 
 

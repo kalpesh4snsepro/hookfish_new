@@ -29,6 +29,17 @@ module.exports = function(passport) {
         });
     });
 
+    passport.use('local-forgott', new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true // allows us to pass back the entire request to the callback
+    },
+    function(req, done) {
+        process.nextTick(function() {
+            console.log("hhhhhhh");
+        })
+    }));
+
     // =========================================================================
     // LOCAL SIGNUP ============================================================
     // =========================================================================
@@ -112,7 +123,7 @@ module.exports = function(passport) {
 
             });
 
-        }));
+    }));
 
 
     // =========================================================================
@@ -124,23 +135,25 @@ module.exports = function(passport) {
         usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true
-    },function(req,done){
+    }, function(req, done) {
 
-        User.findOne({email:email},function(err,user){
-            
+        User.findOne({
+            email: email
+        }, function(err, user) {
+
             console.log("in local reset")
             console.log(req.body);
             if (err)
-                    return done(err);
+                return done(err);
 
-            if(user){
+            if (user) {
                 //if email id exists,send him email containing reset password link
-                
+
                 //generate link in email
-                
+
                 //show him message
                 console.log("Mail sent to your email id");
-            }else{
+            } else {
                 console.log("Invalid email");
             }
 
@@ -150,37 +163,97 @@ module.exports = function(passport) {
 
 
     // =========================================================================
-    // LOCAL RESET PASSWORD =============================================================
+    // LOCAL FORGOT PASSWORD ====================================================
     // =========================================================================
     // this strategy used to reset password for email and if  containing reset
     // by default, if there was no name, it would just be called 'local'
-    passport.use('local-forgot_password', new LocalStrategy({
+    passport.use('local-forgot1', new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true
-    },function(req,done){
+    }, function(req, email, password, done) {
 
-        User.findOne({email:email},function(err,user){
-            
-            console.log("in local forgot")
+        console.log('in forgot passport');
+        console.log(req.body);
+        // asynchronous
+        process.nextTick(function() {
+
+            console.log('in forgot passport');
+            console.log(req.body);
+        });
+
+        var email = ((typeof req.body.email != 'undefined') ? req.body.email.trim() : 'default_email@email.com');
+        console.log(email);
+
+        User.findOne({
+            email: email
+        }, function(err, user) {
+
+            console.log("user found")
             console.log(req.body);
             if (err)
-                    return done(err);
+                return done(err);
 
-            if(user){
+            if (user) {
                 //if email id exists,send him email containing reset password link
-                
+
                 //generate link in email
-                
+
                 //show him message
                 console.log("Mail sent to your email id");
-            }else{
+            } else {
                 console.log("Invalid email");
             }
 
             return done(null, User);
         });
     }));
+
+
+    /*------------------------------------------------------------------------------------------------------*/
+    passport.use('local-login_new', new LocalStrategy({
+            // by default, local strategy uses username and password, we will override with email
+            usernameField: 'email',
+            passwordField: 'password',
+            passReqToCallback: true // allows us to pass back the entire request to the callback
+        },
+        //function(req, done) { // callback with email and password from our form
+        function(req, email, done) {
+
+            console.log("in local forgot")
+            console.log(req.body);
+            return;
+            // find a user whose email is the same as the forms email
+            // we are checking to see if the user trying to login already exists
+            User.findOne({
+                email: email
+            }, function(err, user) {
+
+                console.log("-------");
+                console.log(user);
+                //return;
+                // if there are any errors, return the error before anything else
+                if (err)
+                    return done(err);
+
+                // if no user is found, return the message
+                if (!user) {
+                    console.log('No user found.')
+                        // return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                }
+
+                // if the user is found but the password is wrong
+                if (!user.validPassword(password)) {
+                    console.log('Oops! Wrong password.')
+                        //return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+                }
+
+                // all is well, return successful user
+                return done(null, User);
+            });
+
+        }));
+    /*------------------------------------------------------------------------------------------------------*/
 
 
 
@@ -196,7 +269,8 @@ module.exports = function(passport) {
             passwordField: 'password',
             passReqToCallback: true // allows us to pass back the entire request to the callback
         },
-        function(req, done) { // callback with email and password from our form
+        //function(req, done) { // callback with email and password from our form
+        function(req, email, password, done) {
 
             console.log("in local login")
             console.log(req.body);
@@ -206,21 +280,23 @@ module.exports = function(passport) {
                 email: email
             }, function(err, user) {
 
-
+                console.log("-------");
+                console.log(user);
+                //return;
                 // if there are any errors, return the error before anything else
                 if (err)
                     return done(err);
 
                 // if no user is found, return the message
-                if (!user){
+                if (!user) {
                     console.log('No user found.')
-                   // return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                        // return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
                 }
 
                 // if the user is found but the password is wrong
-                if (!user.validPassword(password)){
+                if (!user.validPassword(password)) {
                     console.log('Oops! Wrong password.')
-                    //return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+                        //return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
                 }
 
                 // all is well, return successful user

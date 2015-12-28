@@ -1,0 +1,50 @@
+#myNavBar {
+  background-color: #1e88e5;
+}
+#terms {
+  position: relative;
+  top: 2px;
+}
+.modal-content {
+  padding: 10px;
+}
+.errorcode,
+.successcode {
+  height: auto;
+  padding: 2px;
+  font-size: 12px;
+  margin: 0px;
+}
+.successcode {
+  color: green;
+}
+.errorcode {
+  color: #ff0000;
+}
+.close {
+  position: relative;
+  top: -12px;
+  left: 11px;
+}
+.helvetica {
+  font-family: Helvetica Neue;
+}
+.col-md-4 a {
+  position: relative;
+  top: 15px;
+  text-align: right;
+}
+#register_after_name {
+  position: relative;
+  top: -14px;
+}
+#areyoutext {
+  font-size: 22px;
+  font-style: bold;
+}
+
+
+/*added by kalpesh*/
+.display-block{
+  display: block !important;
+}

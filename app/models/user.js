@@ -40,7 +40,8 @@ var userSchema = new mongoose.Schema({
         first_name :{ type: String, default: "def_fname" },
         last_name:{ type: String, default: "def_lname" },
         password:{ type: String, default: "default_password" },
-        auth_key:{ type: String, default: "default_authkey" },
+        auth_key:{ type: String, default: "" },
+        reset_token:{ type: String, default: "" },
         user_type: {type: String, enum: ['customer', 'broker'],default: "customer"},
         created_at: { type: Date, default: Date.now },
         updated_at: { type: Date, default: Date.now },
@@ -57,7 +58,7 @@ userSchema.methods.generateHash = function(password) {
 
 // checking if password is valid
 userSchema.methods.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.local.password);
+    return bcrypt.compareSync(password, this.password);
 };
 
 /* user deined functions*/

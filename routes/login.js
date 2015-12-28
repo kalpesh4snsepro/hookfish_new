@@ -8,18 +8,22 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-// process the signup form
+// process the login form
 router.post('/', function(req, res,next) {
 
 	//res.send("In post login action");
-	var loginUser = req.body;
-    passport.authenticate('local-login', function(err, loginUser, info) {
+	//var loginUser = req.body;
+    
+    console.log("In post login action");
+   // console.log(loginUser);
+
+    passport.authenticate('local-login', function(err, loginUser,info) {
     	
     	console.log("in authenticate body");
     	console.log(err);
-        console.log(loginUser);
-        console.log(info);
-    })(req, res, next);;
+        //console.log(loginUser);
+        
+    })(req, res, next);
 
     /*successRedirect : '/profile', // redirect to the secure profile section
     failureRedirect : '/signup', // redirect back to the signup page if there is an error

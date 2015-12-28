@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html>
+
+
+	<head>
+		
+		<title>Hookfish</title>
+		<meta charset="utf-8">
+  		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+  		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  		
+	 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+
+	 	<link href="/stylesheets/landing_styles.css" rel="stylesheet"/>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+
+	    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.6/css/bootstrap-material-design.min.css" rel="stylesheet"/>
+	    
+	   	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.6/css/ripples.min.css" rel="stylesheet"/>
+	    
+	   	<style>
+		   	#areyoutext{
+		   		float:center;
+		   	}
+		   	.disp_blk{
+		   		display: block !important;
+		   	}
+	   	</style>
+
+	</head>
+
+	<body>
+		<div class="navbar navbar-inverse" id="myNavBar">
+ 		 <div class="container-fluid">
+   			 <div class="navbar-header">
+			      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <a class="navbar-brand" href="#">HookFish</a>
+    		</div>
+		    <div class="navbar-collapse collapse navbar-inverse-collapse">
+		      <ul class="nav navbar-nav navbar-right">
+		        <li><a data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" href="#">Login/Register</a></li>
+		      </ul>
+		    </div>
+  		</div>
+	   </div>
+	   <div class="container">
+	   <div class="modal" id="myModal">
+
+		  <div class="modal-dialog">
+		    
+		    <div class="modal-content">
+		      
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		        <ul class="nav nav-justified" id="mytabs">
+				  	<li class="active"><a class="btn btn-info btn-raised active" data-toggle="tab" href="#login" >Login</a></li>
+			   	    <li><a class="btn btn-info btn-raised" data-toggle="tab" href="#register">Register</a></li>
+				</ul>
+		      </div>
+		      
+		      <div class="modal-body">
+		
+		      	<div class="tab-content">
+					
+					<div id="login" class="tab-pane fade in active">
+						
+						<form role="form" method="post" name="loginform" class="form-horizontal" id="loginform">
+							
+							<div class="form-group">
+						      <label for="login_email" class="col-md-2 control-label">Email</label>
+
+						      <div class="col-md-10">
+						        <input type="email" class="form-control" id="login_email" placeholder="Email">
+						      </div>
+
+						    </div>
+
+						    <div class="form-group">
+				      		  <label for="login_password" class="col-md-2 control-label">Password</label>
+
+						      <div class="col-md-10">
+						        <input type="password" class="form-control" placeholder="Password" id="login_password"/>
+						      </div>
+
+						    </div>
+
+						     <div class="form-group">
+							    	<div class="col-md-2 col-md-offset-2">
+							    		<button type="submit" class="btn btn-success btn-raised  submit-buttons display-block">Submit</button>
+							    	</div>
+							    	<div class="col-md-4"></div>
+								    <div class="col-md-4">
+								    	<a data-toggle="tab" id="forgotpasswordlink">Forgot Password?</a>
+								    </div>
+						  	</div>
+
+						</form>
+
+						<form role="form" id="forgotpasswordform" name="forgotpassword" method="post">
+					  		<div class="form-group label-floating">
+					  			<label class="control-label" for="forgotpassword_email">Email</label>
+					  			<input type="text" name="email" class="form-control" id="forgotpassword_email" autocomplete="off"/>
+					  		</div>	
+
+							<div class="form-group">
+								<div class="row"> 
+								    <div class="col-md-2">
+								      <button type="submit" class="btn btn-success btn-raised display-block submit-buttons" id="forgotpasswordsubmit">Send Link</button>
+								    </div>
+								    <div class="col-md-2"></div>
+								    <div class="col-md-4">
+								    	<a id="rememberedpasswordlink">Remembered Password?</a>
+								    </div> 
+							    </div>
+						  	</div>
+			
+				  		</form>
+					
+					</div>
+
+					<div id="register" class="tab-pane fade in">
+						
+						<form role="form" method="post" name="register" action="/signup">
+							 
+							 <div class="form-group">
+					    		
+					    		<div class="row">
+
+						    		<div class="col-md-4">
+						    			<div class="helvetica" id="areyoutext">Are you a?</div>
+						    		</div>
+						    			
+									<div class="form-horizontal">
+							            <div class="radio radio-primary col-md-4">
+								            <label>
+								                <input type="radio" id="customer" name="user_type" value="customer" checked/> Customer
+								            </label>
+							            </div>
+							            <div class="radio radio-primary col-md-4"> 
+								            <label>
+								                <input type="radio" id="broker" name="user_type" value="broker" /> Broker
+								            </label>
+							            </div>
+							        </div>
+
+				    			</div>	
+			    			 
+			    			 </div>
+
+			    			 <div class="errorcode" id="register_after_user"></div>
+
+			    			 <div class="row">
+							
+								<div class="col-md-6">
+									
+									<div class="form-group label-floating">
+										<label class="control-label" for="register_name">Name</label>
+										<input type="text" id="register_name" name="first_name" value="kalpesh" class="form-control"/>
+									</div>
+
+								</div>
+
+								<div class="col-md-6">
+
+									<div class="form-group label-floating">
+										<label class="control-label" for="register_surname">Surname</label>
+										<input type="text" id="register_surname"  value="marathe"  name="last_name" class="form-control"/>
+									</div>
+
+								</div>
+								
+							</div>
+
+							<div class="errorcode" id="register_after_name"></div>
+
+							<div class="form-group label-floating">
+							
+								<label class="control-label" for="register_email">Email Id</label>
+								<input type="text" name="email" class="form-control" id="register_email" autocomplete="off"  value="kalpeshmarathe11@yopmail.com" />
+							
+							</div>
+
+							<div class="errorcode" id="register_after_email"></div>	
+
+							<div class="form-group label-floating">
+							
+								<label class="control-label" for="register_password">Password</label>
+								<input type="password" name="password" class="form-control" id="register_password"  value="123456" />
+							
+							</div>
+
+							<div class="errorcode" id="register_after_password"></div>
+
+							<div class="form-group label-floating">
+							
+								<label class="control-label" for="register_confirm_password">Confirm Password</label>
+								<input type="password" name="confirm_password" class="form-control" id="register_confirm_password" value="123456" />
+							
+							</div>
+
+							<div class="errorcode" id="register_after_confirm"></div>
+
+							<div class="form-group">
+								<div class="checkbox">
+						          <label>
+						            <input type="checkbox" id="terms" checked="checked" />  Terms & Conditions
+						          </label>
+						        </div>
+					        </div>
+
+					        <div class="errorcode" id="register_after_terms"></div>
+
+					        <div class="form-group">
+								<button id="register_submit"  type="submit" class="disp_blk btn btn-success btn-raised  submit-buttons">Join</button>
+							</div>
+
+						</form>
+					
+					</div>    			
+
+		      	</div>
+
+		      </div>
+
+		    </div>
+		  
+		  </div>
+		
+		</div>
+</div>
+
+
+
+	   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.6/js/material.min.js"></script>
+	   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.6/js/ripples.min.js"></script>
+	   <script type="text/javascript">
+	   	$(function() {
+   			 $.material.init();
+		});
+	   </script>
+	   <script src="/javascripts/index.js"></script>
+
+	</body>
+
+
+</html>

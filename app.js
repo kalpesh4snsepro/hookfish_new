@@ -6,7 +6,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var passport = require('passport');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
+var https = require('https');
 
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -16,10 +18,9 @@ var mongoose = require('mongoose');
 
 var router = express.Router();
 var passport = require('passport');
-
+var nodemailer = require("nodemailer");
 
 //var routes = require('./routes/index');
-
 
 var configDB = require('./config/database.js');
 // configuration ===============================================================
@@ -28,6 +29,7 @@ mongoose.connect(configDB.url); // connect to our database
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs'); // set up ejs for templating
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
@@ -48,16 +50,21 @@ app.use(validator());
 //for index
 //app.use('/', routes);
 
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
 // required for passport
 //app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 app.use(session({
     secret: 'ilovescotchscotchyscotchscotch',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+   // store: new MongoStore(),
+    cookie: { maxAge: 60000, secure: false }
 }));
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
+
+
 
 //calling to custom routing method
 require('./app/routes.js')(app, fs);
@@ -103,5 +110,3 @@ module.exports = app;
 // launch ======================================================================
 app.listen(port);
 console.log('The magic happens on port ' + port);
-console.log('This message should displayed on github');
-console.log('This message should displayed on local');
